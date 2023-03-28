@@ -2,10 +2,19 @@
 
 require __DIR__ . "/vendor/autoload.php";
 
-$files = new App\DocumentCollection();
+$registry = DocumentSearch\Registry::getInstance();
+$files = new DocumentSearch\DocumentCollection();
 foreach($files as $file) {
-    echo $file->getName() . "\n";
+    $wordlist = [];
     foreach($file->getIterator() as $word) {
-        echo $word . "\n";
+        if (array_key_exists($word, $wordlist)) {
+            $wordlist[$word]++;
+        } else {
+            $wordlist[$word] = 1;
+        }
     }
+
+    $registry->register($file->getName(), $wordlist);
 }
+
+print_r($registry->get($file->getName()));

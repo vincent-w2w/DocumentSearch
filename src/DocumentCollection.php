@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace DocumentSearch;
 
 use DirectoryIterator;
 
@@ -29,6 +29,9 @@ class DocumentCollection implements Collection
     public function next(): void
     {
         $this->data->next();
+        while($this->data->isDot()) {
+            $this->data->next();
+        }
     }
 
     // Called before iteration.

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App;
+namespace DocumentSearch;
 
 use ArrayIterator;
 use EmptyIterator;
@@ -26,6 +26,10 @@ class File implements Document
             return new EmptyIterator;
         }
 
-        return new ArrayIterator(explode(' ', $content));
+        // $words = preg_split("/[^[:word:]+'{0,1}[:word:]]/", $content, -1, PREG_SPLIT_NO_EMPTY);
+        $words = preg_split("/[\[\]\(\)\-\=\s,\.\"\'\:\;]/", $content, -1, PREG_SPLIT_NO_EMPTY);
+        if ($words === false) return new EmptyIterator;
+
+        return new ArrayIterator($words);
     }
 }
