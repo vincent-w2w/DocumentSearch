@@ -1,5 +1,5 @@
 {
-    "name": "Paqt/DocumentSearch",
+    "name": "paqt/documentsearch",
     "autoload": {
         "psr-4": {
             "DocumentSearch\\": "src/"
